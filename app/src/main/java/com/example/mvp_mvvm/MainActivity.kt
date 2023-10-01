@@ -3,8 +3,6 @@ package com.example.mvp_mvvm
 import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -19,12 +17,13 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
     private lateinit var binding: ActivityMainBinding
     private var presenter: LoginContract.Presenter? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        presenter = LoginPresenter()
+        presenter = restorePresenter()
         presenter?.onAttach(this)
 
         binding.buttonEnter.setOnClickListener {
@@ -34,6 +33,20 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
             )
         }
     }
+
+    private fun restorePresenter(): LoginPresenter {
+        val presenter = lastCustomNonConfigurationInstance as? LoginPresenter
+        return presenter ?: LoginPresenter()
+    }
+
+    override fun getLastNonConfigurationInstance(): Any? {
+        return super.getLastNonConfigurationInstance()
+    }
+
+    override fun onRetainCustomNonConfigurationInstance(): Any? {
+        return presenter
+    }
+
     @MainThread
     override fun setSuccess() {
 
@@ -43,22 +56,23 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
         binding.root.setBackgroundColor(Color.GREEN)
 
     }
-
+    @MainThread
     override fun setError(error: String) {
         Toast.makeText(this, "Error: $error", Toast.LENGTH_SHORT).show()
     }
+
     @MainThread
     override fun showProgress() {
         binding.buttonEnter.isEnabled = false
         hideKeyboard(this)
     }
+
     @MainThread
     override fun hideProgress() {
 
         binding.buttonEnter.isEnabled = true
 
     }
-
 
 
     private fun hideKeyboard(activity: Activity) {
