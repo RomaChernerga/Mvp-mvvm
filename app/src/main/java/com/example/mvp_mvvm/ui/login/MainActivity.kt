@@ -1,4 +1,4 @@
-package com.example.mvp_mvvm
+package com.example.mvp_mvvm.ui.login
 
 import android.app.Activity
 import android.graphics.Color
@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.mvp_mvvm.app
 import com.example.mvp_mvvm.databinding.ActivityMainBinding
 
 
@@ -36,11 +37,8 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
 
     private fun restorePresenter(): LoginPresenter {
         val presenter = lastCustomNonConfigurationInstance as? LoginPresenter
-        return presenter ?: LoginPresenter()
-    }
 
-    override fun getLastNonConfigurationInstance(): Any? {
-        return super.getLastNonConfigurationInstance()
+        return presenter ?: LoginPresenter(app.loginUsecase)
     }
 
     override fun onRetainCustomNonConfigurationInstance(): Any? {
@@ -56,6 +54,7 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
         binding.root.setBackgroundColor(Color.GREEN)
 
     }
+
     @MainThread
     override fun setError(error: String) {
         Toast.makeText(this, "Error: $error", Toast.LENGTH_SHORT).show()
@@ -69,11 +68,8 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
 
     @MainThread
     override fun hideProgress() {
-
         binding.buttonEnter.isEnabled = true
-
     }
-
 
     private fun hideKeyboard(activity: Activity) {
         val imm = activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
