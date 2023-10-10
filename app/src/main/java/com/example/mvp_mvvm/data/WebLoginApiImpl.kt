@@ -4,9 +4,6 @@ import com.example.mvp_mvvm.domain.LoginApi
 
 class WebLoginApiImpl : LoginApi {
 
-    fun salute() {
-
-    }
 
     override fun login(login: String, password: String): Boolean {
         TODO("Not yet implemented")
