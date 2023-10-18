@@ -7,7 +7,7 @@
     android:layout_margin="5dp"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ui.login.MainActivity">
 
 
     <EditText

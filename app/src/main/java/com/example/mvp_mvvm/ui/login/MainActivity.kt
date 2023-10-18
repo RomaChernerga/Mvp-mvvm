@@ -1,4 +1,4 @@
-package com.example.mvp_mvvm
+package com.example.mvp_mvvm.ui.login
 
 import android.app.Activity
 import android.graphics.Color
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.mvp_mvvm.app
 import com.example.mvp_mvvm.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -36,7 +37,8 @@ class MainActivity : AppCompatActivity(), LoginContract.View {
 
     private fun getPresenter(): LoginPresenter? {
         val presenter = lastCustomNonConfigurationInstance as? LoginPresenter
-        return presenter ?: LoginPresenter()
+
+        return presenter ?: LoginPresenter(app.loginUseCase)
     }
 
     override fun onRetainCustomNonConfigurationInstance(): Any? {

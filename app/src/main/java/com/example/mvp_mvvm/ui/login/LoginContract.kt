@@ -1,4 +1,4 @@
-package com.example.mvp_mvvm
+package com.example.mvp_mvvm.ui.login
 
 class LoginContract {
 
