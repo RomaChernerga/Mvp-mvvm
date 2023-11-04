@@ -1,9 +1,9 @@
 package com.example.mvp_mvvm.ui.login
 
-import com.example.mvp_mvvm.domain.LoginUseCase
+import com.example.mvp_mvvm.domain.LoginUsecase
 
 class LoginPresenter(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUsecase
 ) : LoginContract.Presenter {
 
     private var view: LoginContract.View? = null
